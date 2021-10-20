@@ -1,0 +1,53 @@
+/* File : stcplugin.swigcxx */
+%module stcplugin
+
+%module(directors="1") vcomcallback
+
+
+/*添加库应用以兼容c++的std::string类型与go的string类型*/
+%include "std_string.i"
+%apply const std::string& {std::string* foo};
+
+%include "std_vector.i"
+
+namespace std {
+  %template(IntVector) vector<int>;
+  %template(ByteVector) vector<char>;
+	%template(RF21xMessageRawData) vector<unsigned char>;
+	%template(RF21xHidSerialNumbers) vector<string>;
+}
+
+%{
+#include "idevice.h"
+#include "FSManager.h"
+#include "RF21Device.h"
+#include "SmartGmManager.h"
+#include "SmartManager.h"
+#include "IUDisk.h"
+#include "stc_checkdevice.h"
+#include "UDiskFactory.h"
+#include "TDManager.h"
+#include "TDManagerSMI.h"
+#include "VComDevice.h"
+%}
+
+/* Let's just grab the original header file here */
+%include "idevice.h"
+%include "FSManager.h"
+%include "RF21Device.h"
+%include "SmartGmManager.h"
+%include "SmartManager.h"
+%include "IUDisk.h"
+%include "UDiskFactory.h"
+%include "stc_checkdevice.h"
+%include "TDManager.h"
+%include "TDManagerSMI.h"
+%feature("director") Vcomcallback;
+%include "VComDevice.h"
+
+
+
+
+
+
+
